@@ -276,7 +276,7 @@ AccessType=rw
 DefaultValue=0
 PDOMapping=0
 ObjFlags=1
-ParameterValue=1
+ParameterValue=0
 
 [1003sub1]
 ParameterName=Error history 1
@@ -285,7 +285,7 @@ DataType=0x7
 AccessType=ro
 PDOMapping=0
 ObjFlags=1
-ParameterValue=0x00007388
+ParameterValue=0x00000000
 
 [1003sub2]
 ParameterName=Error history 2
