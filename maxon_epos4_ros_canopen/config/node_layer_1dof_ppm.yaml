@@ -4,7 +4,7 @@ nodes:
     id: 1
     name: base_link1_joint 
     eds_pkg: maxon_epos4_ros_canopen # optionals package  name for relative path
-    eds_file: "config/epos4_50_15_can_ec90flat_gp52c_mile800_node1.dcf" # path to EDS/DCF file
+    eds_file: "config/Motor1.dcf" # path to EDS/DCF file
     #encoder_resolution: 800
     #vel_to_device: "vel" # rad/s -> mdeg/s
     #vel_from_device: "obj606C" # actual velocity [mdeg/s] -> rad/s

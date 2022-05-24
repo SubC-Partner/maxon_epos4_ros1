@@ -2,7 +2,7 @@ joint_names: [base_link1_joint]
 
 joint_state_controller:
     type: joint_state_controller/JointStateController
-    publish_rate: 50
+    publish_rate: 10
 
 # Settings of the controller and assossiated drive modes
 # drive mode : see http://wiki.ros.org/canopen_402

@@ -1,0 +1,22 @@
+nodes:
+  node1:
+    id: 1
+    name: base_link1_joint
+    eds_pkg: maxon_epos4_ros_canopen
+    eds_file: "config/Motor1.dcf"
+  node2:
+    id: 2
+    name: base_link2_joint
+    eds_pkg: maxon_epos4_ros_canopen
+    eds_file: "config/Motor2.dcf"
+
+defaults: 
+
+  motor_allicator: canopen::Motor402::Allocator
+  switching_state: 2
+  pos_to_device: "pos"
+  pos_from_device: "obj6064"
+  vel_to_device: "vel"
+  vel_from_device: "obj606C"
+  eff_to_device: "rint(eff)"
+  eff_from_device: "0"
