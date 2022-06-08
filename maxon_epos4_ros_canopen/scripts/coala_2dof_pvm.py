@@ -7,21 +7,20 @@ from std_srvs.srv import Trigger
 
 global motor1
 global motor2
-global init_epos
 global state_buttons
 global motors_initialized
+global last_state
 
 motor1 = 0
 motor2 = 0
-init_epos = 0
 state_buttons = 0
 motors_initialized = 0
+last_state = 0
 
 #Subscriber callback for the Joystick Topic
 def joystick_listener(data):
     global motor1
     global motor2
-    global init_epos
     global state_buttons
     global motors_initialized
 
@@ -54,6 +53,7 @@ def joystick_listener(data):
 #Main runtime for publishing commands. 
 def epos_cmd():
     global motors_initialized
+    global last_state
 
     rospy.init_node('coala_arms_controller', anonymous=True)
     rospy.Subscriber('/acomar/joy', Joy, joystick_listener)
@@ -87,18 +87,32 @@ def epos_cmd():
             motor2_pub.publish(0)
            # rospy.loginfo("While loop button 2 - idle")
 
-        if state_buttons == 2:
-            if motors_initialized == 0:
-                motors_initialized = 1
-                init_motors()
-        
-        if state_buttons == 0: 
+
+        #State machine for the button on the joystick
+        #State 0 Red LED
+        if state_buttons == 0:
             if motors_initialized == 1:
                 motors_initialized = 0
                 shutdown_motors()
+        #State 1 Purple LED
+        if state_buttons == 1:
+            if last_state != 1:
+                if last_state == 0:
+                    pass
+                elif last_state == 2:
+                    halt_motors()
+                    pass
+        #State 2 Blue LED
+        if state_buttons == 2:
+            if last_state == 1:
+                if motors_initialized == 0:
+                    motors_initialized = 1
+                    init_motors()
+                else:
+                    recover_motors()
+        
+        last_state = state_buttons
 
-        
-        
         rate.sleep()
 
 if __name__ == '__main__':
