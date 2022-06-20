@@ -13,6 +13,7 @@ global last_state
 
 motor1 = 0
 motor2 = 0
+motorBoth = 0
 state_buttons = 0
 motors_initialized = 0
 last_state = 0
@@ -21,6 +22,7 @@ last_state = 0
 def joystick_listener(data):
     global motor1
     global motor2
+    global motorBoth
     global state_buttons
     global motors_initialized
 
@@ -36,11 +38,18 @@ def joystick_listener(data):
     
     #Open and close buttons for Left arm
     if data.buttons[10] == 1:
-        motor2 = 1
-    elif data.buttons[11] == 1:
         motor2 = -1
+    elif data.buttons[11] == 1:
+        motor2 = 1
     else:
         motor2 = 0
+    #Operate both arms
+    if data.buttons[12] == 1:
+	motorBoth = -1
+    elif data.buttons[13] == 1:
+	motorBoth = 1
+    else:
+	motorBoth = 0
 
     #State buttons on the joystick to init the motor
     if data.buttons[27] == 1:
@@ -69,24 +78,32 @@ def epos_cmd():
     while not rospy.is_shutdown():
         if motor1 == 1:
            motor1_pub.publish(500)
-           rospy.loginfo("While loop button 1 - up")
+          # rospy.loginfo("While loop button 1 - up")
         elif motor1 == -1:
            motor1_pub.publish(-500)
-           rospy.loginfo("While loop button 1 - down")
+          # rospy.loginfo("While loop button 1 - down")
         else:
-           motor1_pub.publish(0)
+	   if motorBoth == 0:
+		motor1_pub.publish(0)
           # rospy.loginfo("While loop button 1 - idle")
 
         if motor2 == 1:
             motor2_pub.publish(500)
-            rospy.loginfo("While loop button 2 - up")
+           # rospy.loginfo("While loop button 2 - up")
         elif motor2 == -1:
             motor2_pub.publish(-500)
-            rospy.loginfo("While loop button 2 - down")
-        else:
-            motor2_pub.publish(0)
+           # rospy.loginfo("While loop button 2 - down")
+        else: 
+	    if motorBoth == 0:
+		motor2_pub.publish(0)
            # rospy.loginfo("While loop button 2 - idle")
 
+        if motorBoth == -1:
+	    motor1_pub.publish(500)
+	    motor2_pub.publish(-500)
+	elif motorBoth == 1:
+	    motor1_pub.publish(-500)
+	    motor2_pub.publish(500)
 
         #State machine for the button on the joystick
         #State 0 Red LED
