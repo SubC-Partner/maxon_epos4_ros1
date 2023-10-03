@@ -4,13 +4,13 @@ nodes:
     name: base_link1_joint
     eds_pkg: maxon_epos4_ros_canopen
     eds_file: "config/Motor1.dcf"
-    publish: ["301Dsub1!"] # list of objects to be published (one topic per node), current actual average(sub1)
+    publish: ["30d1sub1!"] # list of objects to be published (one topic per node), current actual average(sub1)
   node2:
     id: 2
     name: base_link2_joint
     eds_pkg: maxon_epos4_ros_canopen
     eds_file: "config/Motor2.dcf"
-    publish: ["301Dsub1!"] # list of objects to be published (one topic per node), current actual average(sub1)
+    publish: ["30d1sub1!"] # list of objects to be published (one topic per node), current actual average(sub1)
 defaults: 
 
   motor_allicator: canopen::Motor402::Allocator
