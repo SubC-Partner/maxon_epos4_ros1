@@ -13,7 +13,7 @@ nodes:
     publish: ["30d1sub1!"] # list of objects to be published (one topic per node), current actual average(sub1)
 defaults: 
 
-  motor_allicator: canopen::Motor402::Allocator
+  motor_allocator: canopen::Motor402::Allocator
   switching_state: 2
   pos_to_device: "pos"
   pos_from_device: "obj6064"
