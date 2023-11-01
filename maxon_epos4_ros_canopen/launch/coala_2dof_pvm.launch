@@ -17,8 +17,8 @@
 			<rosparam command="load" file="$(find maxon_epos4_ros_canopen)/config/node_layer_2dof_pvm.yaml" />
 		</node>
 
-		<node name="motor1_current_mon" pkg="topic_tools" type="transform" args="/maxon/base_link1_joint_30d1sub1 /maxon/motor1_current std_msgs/Float32 'm.data * 0.001'" />
-		<node name="motor2_current_mon" pkg="topic_tools" type="transform" args="/maxon/base_link2_joint_30d1sub1 /maxon/motor2_current std_msgs/Float32 'm.data * 0.001'" />
+		<node name="motor1_current_mon" pkg="topic_tools" type="transform" args="/maxon/base_link1_joint_30d1sub1 /maxon/motor1_current std_msgs/Float32 'm.data * 0.001' --wait_for_start" />
+		<node name="motor2_current_mon" pkg="topic_tools" type="transform" args="/maxon/base_link2_joint_30d1sub1 /maxon/motor2_current std_msgs/Float32 'm.data * 0.001' --wait_for_start" />
 
 		<!-- Load Controller -->
 
